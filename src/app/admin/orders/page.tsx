@@ -29,7 +29,7 @@ export default async function AdminOrdersPage() {
     .leftJoin(users, eq(orders.userId, users.id))
     .orderBy(desc(orders.id));
 
-  const pendingOrders = allOrders.filter((o) => o.status === "pending");
+  const pendingOrders = allOrders.filter((o: { status: string }) => o.status === "pending");
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
@@ -80,7 +80,7 @@ export default async function AdminOrdersPage() {
               </tr>
             </thead>
             <tbody>
-              {allOrders.map((order) => (
+              {allOrders.map((order: { id: number; orderNo: string; amount: number; plan: string; status: string; createdAt: string; userName: string | null; userEmail: string | null }) => (
                 <tr key={order.id} className="border-b border-gray-50">
                   <td className="px-4 py-3 font-mono text-gray-900 text-xs">
                     {order.orderNo}
